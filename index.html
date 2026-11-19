@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>General DEC</title>
+<!-- Nombre e icono cuando se agrega a la pantalla de inicio -->
+<meta name="apple-mobile-web-app-title" content="General DEC">
+<meta name="application-name" content="General DEC">
+<meta name="theme-color" content="#140070">
+<link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<style>
+  :root { --fondo:#140070; --texto:#ffffff; --suave:#c9c4ff; }
+  html,body { height:100%; margin:0; }
+  body { background:radial-gradient(circle at 25% 15%, #2a1bd1 0%, var(--fondo) 60%); color:var(--texto);
+         font-family:-apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
+         display:flex; align-items:center; justify-content:center; text-align:center; padding:0 16px; }
+  img { width:96px; height:96px; border-radius:22px; box-shadow:0 10px 30px rgba(0,0,0,.35); }
+  h1 { font-size:22px; margin:18px 0 6px; }
+  p { color:var(--suave); margin:0 0 20px; font-size:15px; }
+  a { display:inline-block; background:#3d7bff; color:#fff; text-decoration:none; padding:12px 22px; border-radius:12px; font-weight:600; }
+</style>
+</head>
+<body>
+  <main>
+    <img src="icon-180.png" alt="">
+    <h1>General DEC</h1>
+    <p>Abriendo la aplicación…</p>
+    <a id="ir" href="#">Abrir</a>
+  </main>
+<script>
+  // ===== UNICA LINEA A CAMBIAR: el link de la app de tripulantes (el que hoy se comparte) =====
+  var APP_URL = "https://script.google.com/a/macros/latam.com/s/AKfycbwF5HQOpWTskz-7rJ98BeF7_ZvNqm-D1wLfbG21QMQR8D3jH_4nAqJuCgKj0uDBhM5KrA/exec";
+  document.getElementById("ir").href = APP_URL;
+  if (/^https:\/\//.test(APP_URL)) setTimeout(function () { location.replace(APP_URL); }, 300);
+</script>
+</body>
+</html>
