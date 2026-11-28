@@ -21,6 +21,9 @@
   h1 { font-size:22px; margin:18px 0 6px; }
   p { color:var(--suave); margin:0 0 20px; font-size:15px; }
   a { display:inline-block; background:#3d7bff; color:#fff; text-decoration:none; padding:12px 22px; border-radius:12px; font-weight:600; }
+  #inst { display:none; max-width:340px; margin:18px auto 0; text-align:left; background:rgba(255,255,255,.08);
+          border:1px solid rgba(255,255,255,.18); border-radius:16px; padding:14px 16px; font-size:15px; line-height:1.5; }
+  #inst b { color:#fff; }
 </style>
 </head>
 <body>
@@ -29,12 +32,26 @@
     <h1>General DEC</h1>
     <p>Abriendo la aplicación…</p>
     <a id="ir" href="#">Abrir</a>
+    <div id="inst"></div>
   </main>
 <script>
   // ===== UNICA LINEA A CAMBIAR: el link de la app de tripulantes (el que hoy se comparte) =====
   var APP_URL = "https://script.google.com/a/macros/latam.com/s/AKfycbwF5HQOpWTskz-7rJ98BeF7_ZvNqm-D1wLfbG21QMQR8D3jH_4nAqJuCgKj0uDBhM5KrA/exec";
   document.getElementById("ir").href = APP_URL;
-  if (/^https:\/\//.test(APP_URL)) setTimeout(function () { location.replace(APP_URL); }, 300);
+  // Modo INSTALAR: .../GenDec/#instalar  -> NO salta a la app, muestra como agregar el icono.
+  // Se limpia la direccion para que el icono guardado abra la app normal.
+  var instalar = /instalar/i.test(location.hash + location.search);
+  if (instalar) {
+    try { history.replaceState(null, "", location.pathname); } catch (e) {}
+    var ios = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    document.querySelector("p").textContent = "Agrega el icono a tu pantalla de inicio:";
+    var inst = document.getElementById("inst");
+    inst.innerHTML = ios
+      ? "1. Toca <b>Compartir</b> (el cuadrado con flecha hacia arriba).<br>2. Elige <b>Agregar a inicio</b>.<br>3. Toca <b>Agregar</b>.<br><br>Desde Chrome: menú <b>···</b> o Compartir → <b>Agregar a inicio</b>."
+      : "1. Toca el menú <b>⋮</b> (arriba a la derecha).<br>2. Elige <b>Agregar a la pantalla principal</b> o <b>Instalar app</b>.<br>3. Toca <b>Agregar</b>.";
+    inst.style.display = "block";
+    document.getElementById("ir").textContent = "Abrir la app";
+  } else if (/^https:\/\//.test(APP_URL)) setTimeout(function () { location.replace(APP_URL); }, 300);
 </script>
 </body>
 </html>
